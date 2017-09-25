@@ -314,7 +314,7 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
 
         void onAdapterAboutToEmpty(int itemsInAdapter);
 
-        void onScroll(float scrollProgressPercent, View view);
+        void onScroll(float scrollProgressPercent, View activeView);
     }
 
     private class AdapterDataSetObserver extends DataSetObserver {
