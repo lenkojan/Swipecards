@@ -19,12 +19,15 @@ import butterknife.OnClick;
 
 public class MyActivity extends Activity {
 
+    @InjectView(R.id.frame)
+    SwipeFlingAdapterView flingContainer;
     private ArrayList<String> al;
     private ArrayAdapter<String> arrayAdapter;
     private int i;
 
-    @InjectView(R.id.frame) SwipeFlingAdapterView flingContainer;
-
+    static void makeToast(Context ctx, String s) {
+        Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class MyActivity extends Activity {
         al.add("css");
         al.add("javascript");
 
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
+        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al);
 
 
         flingContainer.setAdapter(arrayAdapter);
@@ -79,7 +82,7 @@ public class MyActivity extends Activity {
             }
 
             @Override
-            public void onScroll(float scrollProgressPercent) {
+            public void onScroll(float scrollProgressPercent, View view) {
                 View view = flingContainer.getSelectedView();
                 view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
                 view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
@@ -97,11 +100,6 @@ public class MyActivity extends Activity {
 
     }
 
-    static void makeToast(Context ctx, String s){
-        Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
-    }
-
-
     @OnClick(R.id.right)
     public void right() {
         /**
@@ -114,8 +112,6 @@ public class MyActivity extends Activity {
     public void left() {
         flingContainer.getTopCardListener().selectLeft();
     }
-
-
 
 
 }
